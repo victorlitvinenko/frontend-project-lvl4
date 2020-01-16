@@ -6,7 +6,7 @@ import socket from 'socket.io';
 import fastify from 'fastify';
 import pointOfView from 'point-of-view';
 import fastifyStatic from 'fastify-static';
-import _ from 'lodash';
+// import _ from 'lodash';
 import addRoutes from './routes.js';
 
 const isProduction = process.env.NODE_ENV === 'production';
