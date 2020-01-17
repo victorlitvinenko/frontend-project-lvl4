@@ -2,7 +2,8 @@ import React from 'react';
 import ChannelsList from './ChannelsList';
 
 const App = (props) => {
-  const { channels } = props;
+  const { gon: { channels } } = props;
+
   return (
     <div className="row">
       <div className="col-sm-4 col-md-3 mb-3">

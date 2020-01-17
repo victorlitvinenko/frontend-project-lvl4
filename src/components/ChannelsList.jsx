@@ -2,6 +2,7 @@ import React from 'react';
 
 const ChannelsList = (props) => {
   const { channels } = props;
+
   return (
     <div className="list-group">
       {
