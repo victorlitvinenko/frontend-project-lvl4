@@ -3,4 +3,4 @@ node_js:
   - stable
 
 script:
-  - make lint
+  - make test
