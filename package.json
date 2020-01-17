@@ -51,7 +51,7 @@
     "js-cookie": "^2.2.1",
     "lodash": "^4.17.15",
     "mini-css-extract-plugin": "^0.8.2",
-    "node-sass": "^4.13.0",
+    "node-sass": "^4.13.1",
     "point-of-view": "^3.7.0",
     "postcss-import": "^12.0.1",
     "postcss-loader": "^3.0.0",
@@ -75,7 +75,7 @@
     "webpack-dev-server": "^3.10.1"
   },
   "devDependencies": {
-    "@types/jest": "^24.0.25",
+    "@types/jest": "^24.9.0",
     "babel-eslint": "^10.0.3",
     "babel-jest": "^24.9.0",
     "eslint": "^6.8.0",
@@ -83,7 +83,7 @@
     "eslint-plugin-import": "^2.20.0",
     "eslint-plugin-jest": "^23.6.0",
     "eslint-plugin-jsx-a11y": "^6.2.3",
-    "eslint-plugin-react": "^7.17.0",
+    "eslint-plugin-react": "^7.18.0",
     "jest": "^24.9.0",
     "jest-cli": "^24.9.0",
     "nodemon": "^2.0.2"
