@@ -26,6 +26,7 @@ const AdditionSection = (props) => {
         addMessage(currentChannelId, { ...values, userName });
         resetForm({});
         setSubmitting(false);
+        document.getElementById('message').focus();
       }}
     >
       {({
@@ -35,6 +36,8 @@ const AdditionSection = (props) => {
           <ErrorMessage name="message" className="small text-danger" component="div" />
           <div className="input-group mb-3">
             <Field
+              id="message"
+              autoFocus
               className={cn('form-control flex-grow-1', { 'is-invalid': errors.message && touched.message })}
               type="text"
               name="message"
