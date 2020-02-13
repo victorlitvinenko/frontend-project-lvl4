@@ -16,10 +16,10 @@ const App = (props) => {
 
   return (
     <>
-      <div className="col-sm-4 col-md-3 p-3 bg-dark">
+      <div className="col-sm-4 col-md-3 col-lg-2 p-3 bg-dark">
         <ChannelsList channels={state.channels} currentChannelId={state.currentChannelId} />
       </div>
-      <div className="col-sm-8 col-md-9 d-flex flex-column vh-100">
+      <div className="col-sm-8 col-md-9 col-lg-10 d-flex flex-column vh-100">
         <ChannelTitle />
         <MessagesList messages={state.messages} currentChannelId={state.currentChannelId} />
         <AdditionSection />
