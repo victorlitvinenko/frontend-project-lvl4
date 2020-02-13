@@ -1,14 +1,17 @@
 import 'core-js/stable';
 import 'regenerator-runtime/runtime';
-import '../assets/application.scss';
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { Provider } from 'react-redux';
 import gon from 'gon';
 import cookies from 'js-cookie';
 import faker from 'faker';
-import App from './components/App';
-import UserContext from './UserContext';
 // import io from 'socket.io-client';
+
+import store from './store';
+import App from './components/App';
+import UserContext from './context/UserContext';
+import '../assets/application.scss';
 
 if (process.env.NODE_ENV !== 'production') {
   localStorage.debug = 'chat:*';
@@ -17,5 +20,11 @@ if (process.env.NODE_ENV !== 'production') {
 const userName = cookies.get('username') || faker.internet.userName();
 cookies.set('username', userName, { expires: 7 });
 
-ReactDOM.render(<UserContext.Provider value={userName}><App gon={gon} /></UserContext.Provider>,
-  document.getElementById('chat'));
+ReactDOM.render(
+  <UserContext.Provider value={userName}>
+    <Provider store={store}>
+      <App gon={gon} />
+    </Provider>
+  </UserContext.Provider>,
+  document.getElementById('chat'),
+);

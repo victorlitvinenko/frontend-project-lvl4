@@ -48,6 +48,7 @@
     "fastify-secure-session": "^1.1.1",
     "fastify-sensible": "^2.1.1",
     "fastify-static": "^2.6.0",
+    "formik": "^2.1.4",
     "jquery": "^3.4.1",
     "js-cookie": "^2.2.1",
     "lodash": "^4.17.15",

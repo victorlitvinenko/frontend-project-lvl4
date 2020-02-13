@@ -1,5 +1,5 @@
 // @ts-check
-
+const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 const isProduction = process.env.NODE_ENV === 'production';
@@ -8,13 +8,16 @@ const isDevelopment = !isProduction;
 module.exports = {
   mode: process.env.NODE_ENV || 'development',
   entry: [
-    `${__dirname}/src/index.js`,
+    `${__dirname}/src/index.jsx`,
   ],
   externals: {
     gon: 'gon',
   },
   resolve: {
     extensions: ['.js', '.jsx'],
+    alias: {
+      '@': path.resolve(__dirname, 'src/'),
+    },
   },
   output: {
     path: `${__dirname}/dist/public`,

@@ -1,16 +1,12 @@
 doctype html
 html(lang="en")
   head
-    title= Title
+    title='Mini Slack App'
     link(rel="stylesheet" href=assetPath('main.css'))
+    link(rel="stylesheet" href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css')
     script.
       var gon = !{JSON.stringify(gon)};
   body
-    nav.navbar.navbar-expand-lg.navbar-light.bg-faded
-      a.navbar-brand(href="/") Chat
-      button.navbar-toggler(data-toggle="collapse" data-target="#navbarSupportedContent")
-        span.navbar-toggler-icon
-    .container-fluid
-      #chat
-      // block content
+    #chat.container-fluid.d-sm-flex.px-0
+    // block content
     script(src=assetPath('main.js'))
