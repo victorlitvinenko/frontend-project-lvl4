@@ -1,17 +1,17 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 
-import * as actions from '@/store/slice';
+// import * as actions from '@/store/actions';
 import ChannelsList from '@/components/ChannelsList';
 import MessagesList from '@/components/MessagesList';
 import AdditionSection from '@/components/AdditionSection';
 import ChannelTitle from '@/components/ChannelTitle';
 
 const App = (props) => {
-  const { gon, state, initState } = props;
+  const { state } = props;
 
   useEffect(() => {
-    initState(gon);
+    // console.log(state);
   }, []);
 
   return (
@@ -28,10 +28,6 @@ const App = (props) => {
   );
 };
 
-const mapStateToProps = ({ state }) => ({ state });
+const mapStateToProps = (state) => ({ state });
 
-const actionCreators = {
-  initState: actions.initState,
-};
-
-export default connect(mapStateToProps, actionCreators)(App);
+export default connect(mapStateToProps)(App);

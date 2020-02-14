@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import cn from 'classnames';
 
-import UserContext from '@/context/UserContext';
+import UserContext from '@/context';
 
 const ChannelsList = (props) => {
   const { channels, currentChannelId } = props;

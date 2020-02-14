@@ -5,8 +5,8 @@ import {
   Formik, Form, Field, ErrorMessage,
 } from 'formik';
 
-import UserContext from '@/context/UserContext';
-import * as actions from '@/store/slice';
+import UserContext from '@/context';
+import actions from '@/store/actions';
 
 const AdditionSection = (props) => {
   const { state: { currentChannelId }, addMessage } = props;
@@ -59,7 +59,7 @@ const AdditionSection = (props) => {
   );
 };
 
-const mapStateToProps = ({ state }) => ({ state });
+const mapStateToProps = (state) => ({ state });
 
 const actionCreators = {
   addMessage: actions.addMessage,

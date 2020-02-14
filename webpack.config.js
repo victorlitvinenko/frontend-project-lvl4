@@ -8,7 +8,7 @@ const isDevelopment = !isProduction;
 module.exports = {
   mode: process.env.NODE_ENV || 'development',
   entry: [
-    `${__dirname}/src/index.jsx`,
+    `${__dirname}/src/index.js`,
   ],
   externals: {
     gon: 'gon',
