@@ -15,13 +15,6 @@ const AdditionSection = (props) => {
   return (
     <Formik
       initialValues={{ message: '' }}
-      validate={(values) => {
-        const errors = {};
-        if (!values.message) {
-          errors.message = 'Required';
-        }
-        return errors;
-      }}
       onSubmit={(values, { setSubmitting, resetForm }) => {
         addMessage(currentChannelId, { ...values, userName });
         resetForm({});

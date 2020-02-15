@@ -1,4 +1,5 @@
 import React from 'react';
+import ScrollableFeed from 'react-scrollable-feed';
 
 const MessagesList = (props) => {
   const { messages } = props;
@@ -20,10 +21,12 @@ const MessagesList = (props) => {
   ));
 
   return (
-    <div className="card my-3 flex-grow-1 overflow-auto">
-      <div className="card-body p-3">
+    <div className="d-flex flex-column my-3 flex-grow-1 overflow-auto">
+      <ScrollableFeed forceScroll>
+        {/* <div className="card-body p-3"> */}
         {renderMessages()}
-      </div>
+        {/* </div> */}
+      </ScrollableFeed>
     </div>
   );
 };
