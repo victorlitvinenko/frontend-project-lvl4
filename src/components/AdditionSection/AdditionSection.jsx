@@ -1,9 +1,7 @@
 import React, { useContext } from 'react';
 import { connect } from 'react-redux';
 import cn from 'classnames';
-import {
-  Formik, Form, Field, ErrorMessage,
-} from 'formik';
+import { Formik, Form, Field } from 'formik';
 
 import UserContext from '@/context';
 import actions from '@/store/actions';
@@ -17,8 +15,8 @@ const AdditionSection = (props) => {
       initialValues={{ message: '' }}
       onSubmit={(values, { setSubmitting, resetForm }) => {
         addMessage(currentChannelId, { ...values, userName });
-        resetForm({});
         setSubmitting(false);
+        resetForm({});
         document.getElementById('message').focus();
       }}
     >
@@ -26,7 +24,6 @@ const AdditionSection = (props) => {
         isSubmitting, values, errors, touched,
       }) => (
         <Form>
-          <ErrorMessage name="message" className="small text-danger" component="div" />
           <div className="input-group mb-3">
             <Field
               id="message"

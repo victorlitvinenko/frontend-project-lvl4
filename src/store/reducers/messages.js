@@ -8,12 +8,10 @@ const messagesSlice = createSlice({
   name: 'messages',
   initialState: [],
   reducers: {
-    addMessageRequest: (state) => {
-      // state.status = 'requesting';
+    addMessageRequest: () => {
     },
     addMessageSuccess: (state, action) => [...state, action.payload],
-    addMessageFailure: (state) => {
-      // state.status = 'failed';
+    addMessageFailure: () => {
     },
   },
 });
@@ -26,21 +24,17 @@ export const {
   addMessageFailure,
 } = actions;
 
-export const addMessage = (currentChannelId, values) => (dispatch) => {
+export const addMessage = (currentChannelId, values) => async (dispatch) => {
   dispatch(addMessageRequest());
-  axios.post(routes.channelMessagesPath(currentChannelId), {
-    data: {
-      attributes: values,
-    },
-  })
-    .then((response) => {
-      // const message = response.data.data.attributes;
-      // dispatch(addMessageSuccess(message));
-    })
-    .catch((error) => {
-      console.log(error);
-      dispatch(addMessageFailure());
+  try {
+    await axios.post(routes.channelMessagesPath(currentChannelId), {
+      data: {
+        attributes: values,
+      },
     });
+  } catch (error) {
+    dispatch(addMessageFailure());
+  }
 };
 
 export default reducer;

@@ -23,9 +23,7 @@ const MessagesList = (props) => {
   return (
     <div className="d-flex flex-column my-3 flex-grow-1 overflow-auto">
       <ScrollableFeed forceScroll>
-        {/* <div className="card-body p-3"> */}
         {renderMessages()}
-        {/* </div> */}
       </ScrollableFeed>
     </div>
   );
