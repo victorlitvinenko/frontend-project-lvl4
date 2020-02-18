@@ -11,9 +11,9 @@ import Alert from '@/components/Alert';
 const App = (props) => {
   const {
     state: {
-      channels, messages, currentChannelId, error,
+      channels, messages, currentChannelId, notification,
     },
-    setError,
+    setNotification,
   } = props;
 
   const findChannel = (id) => channels.find((channel) => channel.id === id);
@@ -33,7 +33,7 @@ const App = (props) => {
         <MessagesList messages={messages} currentChannelId={currentChannelId} />
         <AdditionSection currentChannelName={currentChannel.name} />
       </div>
-      <Alert show={error} onClose={() => setError(false)} />
+      <Alert notification={notification} onClose={() => setNotification('')} />
     </>
   );
 };
@@ -41,7 +41,7 @@ const App = (props) => {
 const mapStateToProps = (state) => ({ state });
 
 const actionCreators = {
-  setError: actions.setError,
+  setNotification: actions.setNotification,
 };
 
 export default connect(mapStateToProps, actionCreators)(App);

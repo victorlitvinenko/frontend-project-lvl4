@@ -3,23 +3,24 @@ import cn from 'classnames';
 import Toast from 'react-bootstrap/Toast';
 
 const Alert = (props) => {
-  const { show, onClose } = props;
+  const { notification, onClose } = props;
 
   return (
     <Toast
-      style={{ position: 'fixed', top: 0, right: 0 }}
-      className={cn({ 'd-none': !show })}
+      style={{
+        position: 'fixed', top: '50%', left: '50%', transform: 'translate(-50%, -50%)',
+      }}
+      className={cn({ 'd-none': notification === '' })}
       onClose={onClose}
-      show={show}
+      show={notification !== ''}
       delay={3000}
       autohide
     >
       <Toast.Header>
         <i className="fas fa-square mr-1 text-danger" />
         <strong className="mr-auto">Mini Slack</strong>
-        {/* <small>right now</small> */}
       </Toast.Header>
-      <Toast.Body>Network connection error!</Toast.Body>
+      <Toast.Body>{notification}</Toast.Body>
     </Toast>
   );
 };

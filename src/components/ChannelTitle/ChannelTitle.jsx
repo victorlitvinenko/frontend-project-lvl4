@@ -74,8 +74,8 @@ const ChannelTitle = (props) => {
       <RenameChannelDialog
         show={showRenameDialog}
         channelName={currentChannel.name}
-        closeRenameDialog={closeRenameDialog}
         renameChannel={handleRenameChannel}
+        handleClose={closeRenameDialog}
       />
     </>
   );

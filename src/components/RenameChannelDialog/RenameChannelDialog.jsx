@@ -3,7 +3,7 @@ import { Modal, Button, Form } from 'react-bootstrap';
 
 const RenameChannelDialog = (props) => {
   const {
-    show, closeRenameDialog, renameChannel, channelName,
+    show, handleClose, renameChannel, channelName,
   } = props;
 
   const [value, setValue] = useState(channelName);
@@ -26,13 +26,13 @@ const RenameChannelDialog = (props) => {
     }
   };
 
-  const handleClose = () => {
+  const handleCloseRenameDialog = () => {
     setValue(channelName);
-    closeRenameDialog();
+    handleClose();
   };
 
   return (
-    <Modal show={show} onHide={handleClose}>
+    <Modal show={show} onHide={handleCloseRenameDialog}>
       <Modal.Header closeButton>
         <Modal.Title>
           Rename channel #
@@ -50,7 +50,7 @@ const RenameChannelDialog = (props) => {
         />
       </Modal.Body>
       <Modal.Footer>
-        <Button variant="secondary" onClick={handleClose}>
+        <Button variant="secondary" onClick={handleCloseRenameDialog}>
           Close
         </Button>
         <Button

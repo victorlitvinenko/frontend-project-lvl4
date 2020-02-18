@@ -1,8 +1,8 @@
 import channels from './channels';
 import currentChannelId from './currentChannelId';
 import messages from './messages';
-import error from './error';
+import notification from './notification';
 
 export {
-  channels, currentChannelId, messages, error,
+  channels, currentChannelId, messages, notification,
 };
