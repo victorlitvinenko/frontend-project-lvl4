@@ -6,9 +6,7 @@ import cookies from 'js-cookie';
 import faker from 'faker';
 import io from 'socket.io-client';
 
-// import store from './store';
 import * as reducers from './store/reducers';
-
 import actions from './store/actions';
 import App from './components/App';
 import UserContext from './context';
@@ -32,6 +30,12 @@ export default (gon) => {
 
   const socket = io();
   socket.on('newMessage', ({ data: { attributes } }) => store.dispatch(actions.addMessageSuccess(attributes)));
+  socket.on('newChannel', ({ data: { attributes } }) => store.dispatch(actions.addChannelSuccess(attributes)));
+  socket.on('removeChannel', ({ data: { id } }) => {
+    const firstChannelId = store.getState().channels[0].id;
+    store.dispatch(actions.removeChannelSuccess({ id, firstChannelId }));
+  });
+  socket.on('renameChannel', ({ data: { attributes } }) => store.dispatch(actions.renameChannelSuccess(attributes)));
 
   const userName = cookies.get('username') || faker.internet.userName();
   cookies.set('username', userName, { expires: 7 });

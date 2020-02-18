@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 import * as messages from './messages';
+import * as channels from './channels';
 
 export const errorSlice = createSlice({
   name: 'error',
@@ -13,6 +14,9 @@ export const errorSlice = createSlice({
   },
   extraReducers: {
     [messages.addMessageFailure]: () => true,
+    [channels.addChannelFailure]: () => true,
+    [channels.removeChannelFailure]: () => true,
+    [channels.renameChannelFailure]: () => true,
   },
 });
 

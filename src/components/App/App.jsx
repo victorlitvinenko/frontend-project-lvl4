@@ -1,5 +1,4 @@
-import React from 'react';
-import Toast from 'react-bootstrap/Toast';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 
 import actions from '@/store/actions';
@@ -7,6 +6,7 @@ import ChannelsList from '@/components/ChannelsList';
 import MessagesList from '@/components/MessagesList';
 import AdditionSection from '@/components/AdditionSection';
 import ChannelTitle from '@/components/ChannelTitle';
+import Alert from '@/components/Alert';
 
 const App = (props) => {
   const {
@@ -16,30 +16,24 @@ const App = (props) => {
     setError,
   } = props;
 
+  const findChannel = (id) => channels.find((channel) => channel.id === id);
+  const [currentChannel, setCurrentChannel] = useState(findChannel(currentChannelId));
+
+  useEffect(() => {
+    setCurrentChannel(findChannel(currentChannelId));
+  }, [currentChannelId, channels]);
+
   return (
     <>
-      <div className="col-sm-4 col-md-3 col-lg-2 p-3 bg-dark">
+      <div className="col-sm-4 col-md-3 col-lg-2 bg-dark p-0">
         <ChannelsList channels={channels} currentChannelId={currentChannelId} />
       </div>
-      <div className="col-sm-8 col-md-9 col-lg-10 d-flex flex-column vh-100">
-        <ChannelTitle />
+      <div className="col-sm-8 col-md-9 col-lg-10 d-flex flex-column vh-100 p-0">
+        <ChannelTitle currentChannel={currentChannel} />
         <MessagesList messages={messages} currentChannelId={currentChannelId} />
-        <AdditionSection />
+        <AdditionSection currentChannelName={currentChannel.name} />
       </div>
-      <Toast
-        style={{ position: 'fixed', top: 0, right: 0 }}
-        onClose={() => setError(false)}
-        show={error}
-        delay={3000}
-        autohide
-      >
-        <Toast.Header>
-          <i className="fas fa-square mr-1 text-danger" />
-          <strong className="mr-auto">Mini Slack</strong>
-          {/* <small>right now</small> */}
-        </Toast.Header>
-        <Toast.Body>Network connection error!</Toast.Body>
-      </Toast>
+      <Alert show={error} onClose={() => setError(false)} />
     </>
   );
 };
