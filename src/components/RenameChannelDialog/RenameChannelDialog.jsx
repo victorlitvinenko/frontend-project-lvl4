@@ -16,12 +16,12 @@ const RenameChannelDialog = (props) => {
   };
 
   const handleRenameChannel = () => {
-    renameChannel(value);
-    // setValue('');
+    renameChannel(value.trim());
+    setValue(value.trim());
   };
 
   const handleKeyPress = (e) => {
-    if (e.charCode === 13) {
+    if (e.charCode === 13 && value.trim() !== '') {
       handleRenameChannel();
     }
   };
@@ -54,7 +54,8 @@ const RenameChannelDialog = (props) => {
           Close
         </Button>
         <Button
-          variant="primary"
+          variant="success"
+          disabled={value.trim() === ''}
           onClick={handleRenameChannel}
         >
           Rename

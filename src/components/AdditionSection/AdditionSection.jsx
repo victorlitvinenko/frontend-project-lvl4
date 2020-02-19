@@ -1,6 +1,5 @@
 import React, { useContext } from 'react';
 import { connect } from 'react-redux';
-import cn from 'classnames';
 import { Formik, Form, Field } from 'formik';
 
 import UserContext from '@/context';
@@ -13,6 +12,13 @@ const AdditionSection = (props) => {
   return (
     <Formik
       initialValues={{ text: '' }}
+      validate={(values) => {
+        const errors = {};
+        if (!values.text.trim()) {
+          errors.text = 'Required';
+        }
+        return errors;
+      }}
       onSubmit={(values, { setSubmitting, resetForm }) => {
         addMessage(currentChannelId, { ...values, userName, date: new Date() });
         setSubmitting(false);
@@ -21,7 +27,7 @@ const AdditionSection = (props) => {
       }}
     >
       {({
-        isSubmitting, values, errors, touched,
+        isSubmitting, values, errors,
       }) => (
         <Form>
           <div className="input-group mb-3 px-3">
@@ -29,7 +35,7 @@ const AdditionSection = (props) => {
               placeholder={`Message #${currentChannelName}`}
               id="text"
               autoFocus
-              className={cn('form-control flex-grow-1', { 'is-invalid': errors.text && touched.text })}
+              className="form-control flex-grow-1"
               type="text"
               name="text"
               disabled={isSubmitting}

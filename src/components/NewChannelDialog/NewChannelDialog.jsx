@@ -12,12 +12,12 @@ const NewChannelDialog = (props) => {
   };
 
   const handleAddChannel = () => {
-    addChannel(value);
+    addChannel(value.trim());
     setValue('');
   };
 
   const handleKeyPress = (e) => {
-    if (e.charCode === 13) {
+    if (e.charCode === 13 && value.trim() !== '') {
       handleAddChannel();
     }
   };
@@ -47,7 +47,8 @@ const NewChannelDialog = (props) => {
           Close
         </Button>
         <Button
-          variant="primary"
+          variant="success"
+          disabled={value.trim() === ''}
           onClick={handleAddChannel}
         >
           Add
