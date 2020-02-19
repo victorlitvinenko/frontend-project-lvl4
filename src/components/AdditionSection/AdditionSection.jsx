@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { connect } from 'react-redux';
 import cn from 'classnames';
 import { Formik, Form, Field } from 'formik';
@@ -11,6 +11,10 @@ const AdditionSection = (props) => {
     state: { currentChannelId, messageSendingStatus }, addMessage, currentChannelName,
   } = props;
   const userName = useContext(UserContext);
+
+  useEffect(() => {
+    document.getElementById('text').focus();
+  }, [messageSendingStatus]);
 
   return (
     <Formik
@@ -26,7 +30,6 @@ const AdditionSection = (props) => {
         addMessage(currentChannelId, { ...values, userName, date: new Date() });
         setSubmitting(false);
         resetForm({});
-        document.getElementById('text').focus();
       }}
     >
       {({
@@ -41,7 +44,7 @@ const AdditionSection = (props) => {
               className="form-control flex-grow-1"
               type="text"
               name="text"
-              disabled={isSubmitting}
+              disabled={isSubmitting || messageSendingStatus === 'sending'}
             />
             <div className="input-group-append">
               <button
