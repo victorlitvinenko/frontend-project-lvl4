@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext } from 'react';
 import { connect } from 'react-redux';
 import cn from 'classnames';
 import { Formik, Form, Field } from 'formik';
@@ -12,10 +12,6 @@ const AdditionSection = (props) => {
   } = props;
   const userName = useContext(UserContext);
 
-  useEffect(() => {
-    document.getElementById('text').focus();
-  }, [messageSendingStatus]);
-
   return (
     <Formik
       initialValues={{ text: '' }}
@@ -26,10 +22,11 @@ const AdditionSection = (props) => {
         }
         return errors;
       }}
-      onSubmit={(values, { setSubmitting, resetForm }) => {
-        addMessage(currentChannelId, { ...values, userName, date: new Date() });
+      onSubmit={async (values, { setSubmitting, resetForm }) => {
+        await addMessage(currentChannelId, { ...values, userName, date: new Date() });
         setSubmitting(false);
         resetForm({});
+        document.getElementById('text').focus();
       }}
     >
       {({
