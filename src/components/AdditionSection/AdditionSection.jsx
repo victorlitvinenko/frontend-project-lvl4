@@ -1,12 +1,15 @@
 import React, { useContext } from 'react';
 import { connect } from 'react-redux';
+import cn from 'classnames';
 import { Formik, Form, Field } from 'formik';
 
 import UserContext from '@/context';
 import actions from '@/store/actions';
 
 const AdditionSection = (props) => {
-  const { state: { currentChannelId }, addMessage, currentChannelName } = props;
+  const {
+    state: { currentChannelId, messageSendingStatus }, addMessage, currentChannelName,
+  } = props;
   const userName = useContext(UserContext);
 
   return (
@@ -38,7 +41,7 @@ const AdditionSection = (props) => {
               className="form-control flex-grow-1"
               type="text"
               name="text"
-              disabled={isSubmitting}
+              disabled={isSubmitting || messageSendingStatus === 'sending'}
             />
             <div className="input-group-append">
               <button
@@ -46,6 +49,10 @@ const AdditionSection = (props) => {
                 type="submit"
                 disabled={isSubmitting || errors.text || values.text === ''}
               >
+                <div
+                  className={cn('spinner-border spinner-border-sm mr-2', { 'd-none': messageSendingStatus !== 'sending' })}
+                  role="status"
+                />
                 Send
               </button>
             </div>
