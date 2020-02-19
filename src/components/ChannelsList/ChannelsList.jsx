@@ -55,7 +55,7 @@ const ChannelsList = (props) => {
         {renderChannels()}
         <button
           onClick={handleShow}
-          className="mt-3 btn btn-dark list-group-item text-left py-1 px-3 shadow-none text-white bg-dark"
+          className="my-3 btn btn-dark list-group-item text-left py-1 px-3 shadow-none text-white bg-dark"
           type="button"
         >
           <i className="fas fa-plus fa-xs mr-1 text-white-50" />

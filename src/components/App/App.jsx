@@ -28,7 +28,7 @@ const App = (props) => {
       <div className="col-sm-4 col-md-3 col-lg-2 bg-dark p-0">
         <ChannelsList channels={channels} currentChannelId={currentChannelId} />
       </div>
-      <div className="col-sm-8 col-md-9 col-lg-10 d-flex flex-column vh-100 p-0">
+      <div className="col-sm-8 col-md-9 col-lg-10 d-flex flex-column p-0 flex-grow-1 overflow-auto">
         <ChannelTitle currentChannel={currentChannel} />
         <MessagesList messages={messages} currentChannelId={currentChannelId} />
         <AdditionSection currentChannelName={currentChannel.name} />
