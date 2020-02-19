@@ -41,7 +41,7 @@ const AdditionSection = (props) => {
               className="form-control flex-grow-1"
               type="text"
               name="text"
-              disabled={isSubmitting || messageSendingStatus === 'sending'}
+              disabled={isSubmitting}
             />
             <div className="input-group-append">
               <button
