@@ -1,6 +1,5 @@
 # Mini Slack App
-![tests](https://github.com/victorlitvinenko/frontend-project-lvl4/workflows/tests/badge.svg)
-![lint](https://github.com/victorlitvinenko/frontend-project-lvl4/workflows/lint/badge.svg)
+![On Push](https://github.com/victorlitvinenko/frontend-project-lvl4/workflows/On%20Push/badge.svg)
 [![Build Status](https://travis-ci.org/victorlitvinenko/frontend-project-lvl4.svg?branch=master)](https://travis-ci.org/victorlitvinenko/frontend-project-lvl4)
 [![Maintainability](https://api.codeclimate.com/v1/badges/5367e73bac32a5f06319/maintainability)](https://codeclimate.com/github/victorlitvinenko/frontend-project-lvl4/maintainability)
 
