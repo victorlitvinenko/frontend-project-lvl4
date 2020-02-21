@@ -32,7 +32,6 @@ const {
 } = slice.actions;
 
 const addChannel = (name) => async (dispatch) => {
-  if (name.trim() === '') return;
   try {
     dispatch(addChannelRequest());
     const newChannel = await axios.post(routes.channelsPath(), {
@@ -42,7 +41,7 @@ const addChannel = (name) => async (dispatch) => {
     });
     dispatch(addChannelAfterSuccess({ id: newChannel.data.data.id }));
   } catch (error) {
-    dispatch(addChannelFailure());
+    dispatch(addChannelFailure(error.message));
   }
 };
 
@@ -55,7 +54,7 @@ const removeChannel = (id) => async (dispatch) => {
       },
     });
   } catch (error) {
-    dispatch(removeChannelFailure());
+    dispatch(removeChannelFailure(error.message));
   }
 };
 
@@ -67,7 +66,7 @@ const renameChannel = (id, name) => async (dispatch) => {
       },
     });
   } catch (error) {
-    dispatch(renameChannelFailure());
+    dispatch(renameChannelFailure(error.message));
   }
 };
 

@@ -8,7 +8,7 @@ import { asyncActions } from '@/slices';
 
 const AdditionSection = (props) => {
   const {
-    state: { currentChannelId, messageSendingStatus }, addMessage, currentChannelName,
+    state: { currentChannelId }, addMessage, currentChannelName,
   } = props;
   const userName = useContext(UserContext);
 
@@ -41,7 +41,7 @@ const AdditionSection = (props) => {
               className="form-control flex-grow-1"
               type="text"
               name="text"
-              disabled={isSubmitting || messageSendingStatus === 'sending'}
+              disabled={isSubmitting}
             />
             <div className="input-group-append">
               <button
@@ -50,7 +50,7 @@ const AdditionSection = (props) => {
                 disabled={isSubmitting || errors.text || values.text === ''}
               >
                 <div
-                  className={cn('spinner-border spinner-border-sm mr-2', { 'd-none': messageSendingStatus !== 'sending' })}
+                  className={cn('spinner-border spinner-border-sm mr-2', { 'd-none': !isSubmitting })}
                   role="status"
                 />
                 Send

@@ -11,8 +11,7 @@ const slice = createSlice({
     addMessageRequest: () => {
     },
     addMessageSuccess: (state, action) => [...state, action.payload],
-    addMessageFailure: () => {
-    },
+    addMessageFailure: () => {},
   },
   extraReducers: {
     [channels.removeChannelSuccess]:
@@ -31,7 +30,7 @@ const addMessage = (currentChannelId, values) => async (dispatch) => {
       },
     });
   } catch (error) {
-    dispatch(addMessageFailure());
+    dispatch(addMessageFailure(error.message));
   }
 };
 
