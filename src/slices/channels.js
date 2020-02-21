@@ -11,9 +11,8 @@ const slice = createSlice({
     currentChannelId: null,
   },
   reducers: {
-    addChannelRequest: () => {},
     addChannelSuccess: (state, action) => { state.data = [...state.data, action.payload]; },
-    addChannelAfterSuccess: (state, action) => { state.currentChannelId = action.payload.id; },
+    addChannelFinish: (state, action) => { state.currentChannelId = action.payload.id; },
     addChannelFailure: () => {},
     removeChannelSuccess: (state, action) => {
       const { id } = action.payload;
@@ -22,7 +21,6 @@ const slice = createSlice({
       }
       state.data = state.data.filter((t) => t.id !== id);
     },
-    removeChannelAfterSuccess: () => {},
     removeChannelFailure: () => {},
     renameChannelSuccess: (state, action) => {
       const { id, name } = action.payload;
@@ -34,8 +32,7 @@ const slice = createSlice({
 });
 
 const {
-  addChannelRequest,
-  addChannelAfterSuccess,
+  addChannelFinish,
   addChannelFailure,
   removeChannelFailure,
   renameChannelFailure,
@@ -44,13 +41,12 @@ const {
 
 const addChannel = (name) => async (dispatch) => {
   try {
-    dispatch(addChannelRequest());
     const newChannel = await axios.post(routes.channelsPath(), {
       data: {
         attributes: { name },
       },
     });
-    dispatch(addChannelAfterSuccess({ id: newChannel.data.data.id }));
+    dispatch(addChannelFinish({ id: newChannel.data.data.id }));
   } catch (error) {
     dispatch(addChannelFailure(error.message));
   }
@@ -58,7 +54,6 @@ const addChannel = (name) => async (dispatch) => {
 
 const removeChannel = (id) => async (dispatch) => {
   try {
-    dispatch(addChannelRequest());
     await axios.delete(routes.channelPath(id), {
       data: {
         id,

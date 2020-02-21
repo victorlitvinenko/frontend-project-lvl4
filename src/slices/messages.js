@@ -8,8 +8,6 @@ const slice = createSlice({
   name: 'messages',
   initialState: [],
   reducers: {
-    addMessageRequest: () => {
-    },
     addMessageSuccess: (state, action) => [...state, action.payload],
     addMessageFailure: () => {},
   },
@@ -19,10 +17,9 @@ const slice = createSlice({
   },
 });
 
-const { addMessageRequest, addMessageFailure } = slice.actions;
+const { addMessageFailure } = slice.actions;
 
 const addMessage = (currentChannelId, values) => async (dispatch) => {
-  dispatch(addMessageRequest());
   try {
     await axios.post(routes.channelMessagesPath(currentChannelId), {
       data: {
