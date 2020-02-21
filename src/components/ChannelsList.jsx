@@ -4,12 +4,11 @@ import cn from 'classnames';
 
 import { asyncActions } from '@/slices';
 import UserContext from '@/context/UserContext';
-import NewChannelDialog from '@/components/NewChannelDialog';
+import { NewChannelDialog } from '@/components/Dialogs';
 
 const ChannelsList = (props) => {
   const userName = useContext(UserContext);
   const [show, setShow] = useState(false);
-
   const {
     channels, currentChannelId, changeChannel, addChannel,
   } = props;

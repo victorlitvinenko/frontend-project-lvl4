@@ -2,10 +2,9 @@ import React, { useState } from 'react';
 import { connect } from 'react-redux';
 
 import { asyncActions } from '@/slices';
-import RemoveChannelDialog from '@/components/RemoveChannelDialog';
-import RenameChannelDialog from '@/components/RenameChannelDialog';
+import { RemoveChannelDialog, RenameChannelDialog } from '@/components/Dialogs';
 
-const ChannelTitle = (props) => {
+const ChannelHeader = (props) => {
   const [showRemoveDialog, setShowRemoveDialog] = useState(false);
   const [showRenameDialog, setShowRenameDialog] = useState(false);
   const { currentChannel, removeChannel, renameChannel } = props;
@@ -88,4 +87,4 @@ const actionCreators = {
   renameChannel: asyncActions.renameChannel,
 };
 
-export default connect(mapStateToProps, actionCreators)(ChannelTitle);
+export default connect(mapStateToProps, actionCreators)(ChannelHeader);

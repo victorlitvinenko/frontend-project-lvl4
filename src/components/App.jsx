@@ -5,8 +5,8 @@ import { asyncActions } from '@/slices';
 import ChannelsList from '@/components/ChannelsList';
 import MessagesList from '@/components/MessagesList';
 import AdditionSection from '@/components/AdditionSection';
-import ChannelTitle from '@/components/ChannelTitle';
-import Alert from '@/components/Alert';
+import ChannelHeader from '@/components/ChannelHeader';
+import { Alert } from '@/components/Dialogs';
 
 const App = (props) => {
   const {
@@ -29,7 +29,7 @@ const App = (props) => {
         <ChannelsList channels={channels} currentChannelId={currentChannelId} />
       </div>
       <div className="col-sm-8 col-md-9 col-lg-10 d-flex flex-column p-0 flex-grow-1 overflow-auto">
-        <ChannelTitle currentChannel={currentChannel} />
+        <ChannelHeader currentChannel={currentChannel} />
         <MessagesList messages={messages} currentChannelId={currentChannelId} />
         <AdditionSection currentChannelName={currentChannel.name} />
       </div>
