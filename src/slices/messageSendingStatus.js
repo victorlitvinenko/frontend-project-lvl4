@@ -1,8 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-import * as messages from './messages';
+import { actions as messages } from './messages';
 
-const messageSendingSlice = createSlice({
+const slice = createSlice({
   name: 'messageSending',
   initialState: '',
   reducers: {},
@@ -13,6 +13,4 @@ const messageSendingSlice = createSlice({
   },
 });
 
-const { reducer } = messageSendingSlice;
-
-export default reducer;
+export default slice.reducer;

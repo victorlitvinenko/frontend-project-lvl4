@@ -1,9 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-import * as messages from './messages';
-import * as channels from './channels';
+import { actions as messages } from './messages';
+import { actions as channels } from './channels';
 
-export const notificationSlice = createSlice({
+const slice = createSlice({
   name: 'notification',
   initialState: '',
   reducers: {
@@ -20,14 +20,13 @@ export const notificationSlice = createSlice({
   },
 });
 
-export const { actions, reducer } = notificationSlice;
+const { setNotificationRequest } = slice.actions;
 
-export const {
-  setNotificationRequest,
-} = actions;
-
-export const setNotification = (message) => (dispatch) => {
+const setNotification = (message) => (dispatch) => {
   dispatch(setNotificationRequest(message));
 };
 
-export default reducer;
+const actions = { ...slice.actions };
+const asyncActions = { setNotification };
+export { actions, asyncActions };
+export default slice.reducer;

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 
-import actions from '@/store/actions';
+import { asyncActions } from '@/slices';
 import RemoveChannelDialog from '@/components/RemoveChannelDialog';
 import RenameChannelDialog from '@/components/RenameChannelDialog';
 
@@ -84,8 +84,8 @@ const ChannelTitle = (props) => {
 const mapStateToProps = (state) => ({ state });
 
 const actionCreators = {
-  removeChannel: actions.removeChannel,
-  renameChannel: actions.renameChannel,
+  removeChannel: asyncActions.removeChannel,
+  renameChannel: asyncActions.renameChannel,
 };
 
 export default connect(mapStateToProps, actionCreators)(ChannelTitle);

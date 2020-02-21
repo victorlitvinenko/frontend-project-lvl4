@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 
-import actions from '@/store/actions';
+import { asyncActions } from '@/slices';
 import ChannelsList from '@/components/ChannelsList';
 import MessagesList from '@/components/MessagesList';
 import AdditionSection from '@/components/AdditionSection';
@@ -41,7 +41,7 @@ const App = (props) => {
 const mapStateToProps = (state) => ({ state });
 
 const actionCreators = {
-  setNotification: actions.setNotification,
+  setNotification: asyncActions.setNotification,
 };
 
 export default connect(mapStateToProps, actionCreators)(App);

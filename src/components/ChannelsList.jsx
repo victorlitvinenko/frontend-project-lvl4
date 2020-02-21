@@ -2,8 +2,8 @@ import React, { useContext, useState } from 'react';
 import { connect } from 'react-redux';
 import cn from 'classnames';
 
-import actions from '@/store/actions';
-import UserContext from '@/context';
+import { asyncActions } from '@/slices';
+import UserContext from '@/context/UserContext';
 import NewChannelDialog from '@/components/NewChannelDialog';
 
 const ChannelsList = (props) => {
@@ -74,8 +74,8 @@ const ChannelsList = (props) => {
 const mapStateToProps = (state) => ({ state });
 
 const actionCreators = {
-  changeChannel: actions.changeChannel,
-  addChannel: actions.addChannel,
+  changeChannel: asyncActions.changeChannel,
+  addChannel: asyncActions.addChannel,
 };
 
 export default connect(mapStateToProps, actionCreators)(ChannelsList);

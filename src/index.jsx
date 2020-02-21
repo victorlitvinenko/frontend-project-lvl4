@@ -6,10 +6,9 @@ import cookies from 'js-cookie';
 import faker from 'faker';
 import io from 'socket.io-client';
 
-import * as reducers from './store/reducers';
-import actions from './store/actions';
+import reducer, { actions } from './slices';
 import App from './components/App';
-import UserContext from './context';
+import UserContext from './context/UserContext';
 
 export default (gon) => {
   const { channels, messages, currentChannelId } = gon;
@@ -20,7 +19,7 @@ export default (gon) => {
   });
 
   const store = configureStore({
-    reducer: { ...reducers },
+    reducer,
     middleware,
     devTools: process.env.NODE_ENV !== 'production',
     preloadedState: {

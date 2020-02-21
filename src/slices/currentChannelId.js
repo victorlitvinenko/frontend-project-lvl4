@@ -1,8 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-import * as channels from './channels';
+import { actions as channels } from './channels';
 
-export const currentChannelIdSlice = createSlice({
+const slice = createSlice({
   name: 'currentChannelId',
   initialState: 0,
   reducers: {
@@ -15,14 +15,13 @@ export const currentChannelIdSlice = createSlice({
   },
 });
 
-export const { actions, reducer } = currentChannelIdSlice;
+const { changeChannelRequest } = slice.actions;
 
-export const {
-  changeChannelRequest,
-} = actions;
-
-export const changeChannel = (id) => async (dispatch) => {
+const changeChannel = (id) => async (dispatch) => {
   dispatch(changeChannelRequest({ id }));
 };
 
-export default reducer;
+const actions = { ...slice.actions };
+const asyncActions = { changeChannel };
+export { actions, asyncActions };
+export default slice.reducer;

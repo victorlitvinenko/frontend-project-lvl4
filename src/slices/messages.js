@@ -2,9 +2,9 @@ import axios from 'axios';
 import { createSlice } from '@reduxjs/toolkit';
 
 import routes from '@/routes';
-import * as channels from './channels';
+import { actions as channels } from './channels';
 
-const messagesSlice = createSlice({
+const slice = createSlice({
   name: 'messages',
   initialState: [],
   reducers: {
@@ -20,15 +20,9 @@ const messagesSlice = createSlice({
   },
 });
 
-const { actions, reducer } = messagesSlice;
+const { addMessageRequest, addMessageFailure } = slice.actions;
 
-export const {
-  addMessageRequest,
-  addMessageSuccess,
-  addMessageFailure,
-} = actions;
-
-export const addMessage = (currentChannelId, values) => async (dispatch) => {
+const addMessage = (currentChannelId, values) => async (dispatch) => {
   dispatch(addMessageRequest());
   try {
     await axios.post(routes.channelMessagesPath(currentChannelId), {
@@ -41,4 +35,7 @@ export const addMessage = (currentChannelId, values) => async (dispatch) => {
   }
 };
 
-export default reducer;
+const actions = { ...slice.actions };
+const asyncActions = { addMessage };
+export { actions, asyncActions };
+export default slice.reducer;

@@ -4,7 +4,7 @@ import axios from 'axios';
 
 import routes from '@/routes';
 
-export const channelsSlice = createSlice({
+const slice = createSlice({
   name: 'channels',
   initialState: [],
   reducers: {
@@ -23,21 +23,15 @@ export const channelsSlice = createSlice({
   },
 });
 
-export const { actions, reducer } = channelsSlice;
-
-export const {
+const {
   addChannelRequest,
-  addChannelSuccess,
   addChannelAfterSuccess,
   addChannelFailure,
-  removeChannelSuccess,
-  removeChannelAfterSuccess,
   removeChannelFailure,
-  renameChannelSuccess,
   renameChannelFailure,
-} = actions;
+} = slice.actions;
 
-export const addChannel = (name) => async (dispatch) => {
+const addChannel = (name) => async (dispatch) => {
   if (name.trim() === '') return;
   try {
     dispatch(addChannelRequest());
@@ -52,7 +46,7 @@ export const addChannel = (name) => async (dispatch) => {
   }
 };
 
-export const removeChannel = (id) => async (dispatch) => {
+const removeChannel = (id) => async (dispatch) => {
   try {
     dispatch(addChannelRequest());
     await axios.delete(routes.channelPath(id), {
@@ -65,7 +59,7 @@ export const removeChannel = (id) => async (dispatch) => {
   }
 };
 
-export const renameChannel = (id, name) => async (dispatch) => {
+const renameChannel = (id, name) => async (dispatch) => {
   try {
     await axios.patch(routes.channelPath(id), {
       data: {
@@ -77,4 +71,7 @@ export const renameChannel = (id, name) => async (dispatch) => {
   }
 };
 
-export default reducer;
+const actions = { ...slice.actions };
+const asyncActions = { addChannel, removeChannel, renameChannel };
+export { actions, asyncActions };
+export default slice.reducer;

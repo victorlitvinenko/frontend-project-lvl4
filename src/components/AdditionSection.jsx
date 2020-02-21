@@ -3,8 +3,8 @@ import { connect } from 'react-redux';
 import cn from 'classnames';
 import { Formik, Form, Field } from 'formik';
 
-import UserContext from '@/context';
-import actions from '@/store/actions';
+import UserContext from '@/context/UserContext';
+import { asyncActions } from '@/slices';
 
 const AdditionSection = (props) => {
   const {
@@ -66,7 +66,7 @@ const AdditionSection = (props) => {
 const mapStateToProps = (state) => ({ state });
 
 const actionCreators = {
-  addMessage: actions.addMessage,
+  addMessage: asyncActions.addMessage,
 };
 
 export default connect(mapStateToProps, actionCreators)(AdditionSection);
