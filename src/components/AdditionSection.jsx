@@ -8,7 +8,7 @@ import { asyncActions } from '@/slices';
 
 const AdditionSection = (props) => {
   const {
-    state: { currentChannelId }, addMessage, currentChannelName,
+    state: { channels: { currentChannelId } }, addMessage, currentChannelName,
   } = props;
   const userName = useContext(UserContext);
 

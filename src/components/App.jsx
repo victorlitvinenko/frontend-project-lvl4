@@ -11,7 +11,7 @@ import Alert from '@/components/Alert';
 const App = (props) => {
   const {
     state: {
-      channels, messages, currentChannelId, notification,
+      channels: { data: channels, currentChannelId }, messages, notification,
     },
     setNotification,
   } = props;

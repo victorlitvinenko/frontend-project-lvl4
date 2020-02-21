@@ -6,20 +6,30 @@ import routes from '@/routes';
 
 const slice = createSlice({
   name: 'channels',
-  initialState: [],
+  initialState: {
+    data: [],
+    currentChannelId: null,
+  },
   reducers: {
     addChannelRequest: () => {},
-    addChannelSuccess: (state, action) => [...state, action.payload],
-    addChannelAfterSuccess: () => {},
+    addChannelSuccess: (state, action) => { state.data = [...state.data, action.payload]; },
+    addChannelAfterSuccess: (state, action) => { state.currentChannelId = action.payload.id; },
     addChannelFailure: () => {},
-    removeChannelSuccess: (state, action) => state.filter((t) => t.id !== action.payload.id),
+    removeChannelSuccess: (state, action) => {
+      const { id } = action.payload;
+      if (state.currentChannelId === id) {
+        state.currentChannelId = state.data[0].id;
+      }
+      state.data = state.data.filter((t) => t.id !== id);
+    },
     removeChannelAfterSuccess: () => {},
     removeChannelFailure: () => {},
     renameChannelSuccess: (state, action) => {
       const { id, name } = action.payload;
-      state.find((c) => c.id === id).name = name;
+      state.data.find((c) => c.id === id).name = name;
     },
     renameChannelFailure: () => {},
+    changeChannelRequest: (state, action) => { state.currentChannelId = action.payload.id; },
   },
 });
 
@@ -29,6 +39,7 @@ const {
   addChannelFailure,
   removeChannelFailure,
   renameChannelFailure,
+  changeChannelRequest,
 } = slice.actions;
 
 const addChannel = (name) => async (dispatch) => {
@@ -70,7 +81,13 @@ const renameChannel = (id, name) => async (dispatch) => {
   }
 };
 
+const changeChannel = (id) => async (dispatch) => {
+  dispatch(changeChannelRequest({ id }));
+};
+
 const actions = { ...slice.actions };
-const asyncActions = { addChannel, removeChannel, renameChannel };
+const asyncActions = {
+  addChannel, removeChannel, renameChannel, changeChannel,
+};
 export { actions, asyncActions };
 export default slice.reducer;
