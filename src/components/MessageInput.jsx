@@ -18,7 +18,7 @@ const MessageInput = (props) => {
   const { channels: { currentChannelId } } = useSelector((state) => state);
   const userName = useContext(UserContext);
   const [inputRef, setInputFocus] = useFocus();
-  useEffect(() => { setInputFocus(); }, []);
+  useEffect(() => { setInputFocus(); });
 
   const formik = useFormik({
     initialValues: {
