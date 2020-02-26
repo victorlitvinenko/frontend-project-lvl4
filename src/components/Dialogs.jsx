@@ -1,12 +1,21 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import cn from 'classnames';
 import {
   Modal, Button, Form, Toast,
 } from 'react-bootstrap';
 
+const useFocus = () => {
+  const htmlElRef = useRef(null);
+  const setFocus = () => htmlElRef.current && htmlElRef.current.select();
+  return [htmlElRef, setFocus];
+};
+
 export const NewChannelDialog = (props) => {
   const [value, setValue] = useState('');
   const { show, closeModalDialog, addChannel } = props;
+  const [inputRef, setInputFocus] = useFocus();
+
+  useEffect(() => { setInputFocus(); }, [show]);
 
   const handleChange = (e) => {
     e.preventDefault();
@@ -36,6 +45,7 @@ export const NewChannelDialog = (props) => {
       </Modal.Header>
       <Modal.Body>
         <Form.Control
+          ref={inputRef}
           type="text"
           id="addChannel"
           name="addChannel"
@@ -98,6 +108,9 @@ export const RenameChannelDialog = (props) => {
 
   const [value, setValue] = useState(channelName);
 
+  const [inputRef, setInputFocus] = useFocus();
+
+  useEffect(() => { setInputFocus(); }, [show]);
   useEffect(() => { setValue(channelName); }, [channelName]);
 
   const handleChange = (e) => {
@@ -131,6 +144,7 @@ export const RenameChannelDialog = (props) => {
       </Modal.Header>
       <Modal.Body>
         <Form.Control
+          ref={inputRef}
           type="text"
           id="renameChannel"
           name="renameChannel"

@@ -1,27 +1,26 @@
 import React, { useState, useEffect } from 'react';
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 
-import { asyncActions } from '@/slices';
 import ChannelsList from '@/components/ChannelsList';
 import MessagesList from '@/components/MessagesList';
-import AdditionSection from '@/components/AdditionSection';
+import MessageInput from '@/components/MessageInput';
 import ChannelHeader from '@/components/ChannelHeader';
 import { Alert } from '@/components/Dialogs';
+import connect from '@/connect';
 
 const App = (props) => {
+  const { setNotification } = props;
   const {
-    state: {
-      channels: { data: channels, currentChannelId }, messages, notification,
-    },
-    setNotification,
-  } = props;
+    channels: { data: channels, currentChannelId },
+    messages, notification,
+  } = useSelector((state) => state);
 
   const findChannel = (id) => channels.find((channel) => channel.id === id);
   const [currentChannel, setCurrentChannel] = useState(findChannel(currentChannelId));
-
   useEffect(() => {
     setCurrentChannel(findChannel(currentChannelId));
   }, [currentChannelId, channels]);
+  const currentMessages = messages.filter((el) => el.channelId === currentChannelId);
 
   return (
     <>
@@ -30,18 +29,12 @@ const App = (props) => {
       </div>
       <div className="col-sm-8 col-md-9 col-lg-10 d-flex flex-column p-0 flex-grow-1 overflow-auto">
         <ChannelHeader currentChannel={currentChannel} />
-        <MessagesList messages={messages} currentChannelId={currentChannelId} />
-        <AdditionSection currentChannelName={currentChannel.name} />
+        <MessagesList messages={currentMessages} />
+        <MessageInput currentChannelName={currentChannel.name} />
       </div>
       <Alert notification={notification} onClose={() => setNotification('')} />
     </>
   );
 };
 
-const mapStateToProps = (state) => ({ state });
-
-const actionCreators = {
-  setNotification: asyncActions.setNotification,
-};
-
-export default connect(mapStateToProps, actionCreators)(App);
+export default connect()(App);

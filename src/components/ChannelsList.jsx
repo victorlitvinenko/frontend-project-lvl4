@@ -1,8 +1,7 @@
 import React, { useContext, useState } from 'react';
-import { connect } from 'react-redux';
+import connect from '@/connect';
 import cn from 'classnames';
 
-import { asyncActions } from '@/slices';
 import UserContext from '@/context/UserContext';
 import { NewChannelDialog } from '@/components/Dialogs';
 
@@ -29,9 +28,8 @@ const ChannelsList = (props) => {
     </button>
   ));
 
-  const handleShow = async () => {
-    await setShow(true);
-    document.getElementById('addChannel').focus();
+  const handleShow = () => {
+    setShow(true);
   };
 
   const closeModalDialog = () => setShow(false);
@@ -70,11 +68,4 @@ const ChannelsList = (props) => {
   );
 };
 
-const mapStateToProps = (state) => ({ state });
-
-const actionCreators = {
-  changeChannel: asyncActions.changeChannel,
-  addChannel: asyncActions.addChannel,
-};
-
-export default connect(mapStateToProps, actionCreators)(ChannelsList);
+export default connect()(ChannelsList);
