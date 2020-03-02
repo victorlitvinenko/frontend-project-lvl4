@@ -5,38 +5,47 @@ import cn from 'classnames';
 import UserContext from '@/context/UserContext';
 import { NewChannelDialog } from '@/components/Dialogs';
 
-const ChannelsList = (props) => {
-  const userName = useContext(UserContext);
-  const [show, setShow] = useState(false);
-  const {
-    channels, currentChannelId, changeChannel, addChannel,
-  } = props;
-
-  const renderChannels = () => channels.map(({ id, name }) => (
+const Channel = (props) => {
+  const { current, name, changeChannel } = props;
+  const channelClass = cn('btn btn-dark list-group-item text-left py-1 px-3 shadow-none text-white',
+    {
+      'bg-primary': current,
+      'bg-dark': !current,
+    });
+  return (
     <button
       type="button"
-      className={cn('btn btn-dark list-group-item text-left py-1 px-3 shadow-none text-white',
-        {
-          'bg-primary': id === currentChannelId,
-          'bg-dark': id !== currentChannelId,
-        })}
-      key={id}
-      onClick={() => changeChannel(id)}
+      className={channelClass}
+      onClick={changeChannel}
     >
       <i className="fas fa-hashtag fa-xs mr-1 text-white-50" />
       {name}
     </button>
-  ));
+  );
+};
 
-  const handleShow = () => {
-    setShow(true);
-  };
+const ChannelsList = (props) => {
+  const userName = useContext(UserContext);
+  const [isNewDialogVisible, setNewDialogVisibility] = useState(false);
+  const {
+    channels, currentChannelId, changeChannel, addChannel,
+  } = props;
 
-  const closeModalDialog = () => setShow(false);
+  const renderChannels = () => channels.map(({ id, name }) => {
+    const isCurrentChannel = id === currentChannelId;
+    return (
+      <Channel
+        key={id}
+        current={isCurrentChannel}
+        name={name}
+        changeChannel={() => changeChannel(id)}
+      />
+    );
+  });
 
   const handleAddChannel = (name) => {
     addChannel(name);
-    setShow(false);
+    setNewDialogVisibility(false);
   };
 
   return (
@@ -51,7 +60,7 @@ const ChannelsList = (props) => {
       <div className="list-group list-group-flush">
         {renderChannels()}
         <button
-          onClick={handleShow}
+          onClick={() => setNewDialogVisibility(true)}
           className="my-3 btn btn-dark list-group-item text-left py-1 px-3 shadow-none text-white bg-dark"
           type="button"
         >
@@ -60,8 +69,8 @@ const ChannelsList = (props) => {
         </button>
       </div>
       <NewChannelDialog
-        show={show}
-        closeModalDialog={closeModalDialog}
+        show={isNewDialogVisible}
+        closeModalDialog={() => setNewDialogVisibility(false)}
         addChannel={handleAddChannel}
       />
     </>

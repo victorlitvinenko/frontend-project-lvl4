@@ -1,13 +1,20 @@
-import React, { useEffect, useContext, useRef } from 'react';
+import React, {
+  useState, useEffect, useContext, useRef,
+} from 'react';
 import { useSelector } from 'react-redux';
 import { useFormik } from 'formik';
+import Spinner from 'react-bootstrap/Spinner';
 
 import connect from '@/connect';
 import UserContext from '@/context/UserContext';
 
 const useFocus = () => {
   const htmlElRef = useRef(null);
-  const setFocus = () => htmlElRef.current && htmlElRef.current.focus();
+  const setFocus = () => {
+    if (htmlElRef.current) {
+      htmlElRef.current.focus();
+    }
+  };
   return [htmlElRef, setFocus];
 };
 
@@ -18,7 +25,8 @@ const MessageInput = (props) => {
   const { channels: { currentChannelId } } = useSelector((state) => state);
   const userName = useContext(UserContext);
   const [inputRef, setInputFocus] = useFocus();
-  useEffect(() => { setInputFocus(); });
+  useEffect(setInputFocus);
+  const [status, setStatus] = useState('empty');
 
   const formik = useFormik({
     initialValues: {
@@ -28,13 +36,18 @@ const MessageInput = (props) => {
       const errors = {};
       if (!values.text.trim()) {
         errors.text = 'Required';
+        setStatus('empty');
+      } else {
+        setStatus('idle');
       }
       return errors;
     },
     onSubmit: async (values, { setSubmitting, resetForm }) => {
+      setStatus('submitting');
       await addMessage(currentChannelId, { ...values, userName, date: new Date() });
       setSubmitting(false);
       resetForm({});
+      setStatus('empty');
       setInputFocus();
     },
   });
@@ -49,7 +62,7 @@ const MessageInput = (props) => {
           className="form-control flex-grow-1"
           type="text"
           name="text"
-          disabled={formik.isSubmitting}
+          disabled={status === 'submitting'}
           onChange={formik.handleChange}
           value={formik.values.text}
         />
@@ -57,21 +70,15 @@ const MessageInput = (props) => {
           <button
             className="btn btn-success"
             type="submit"
-            disabled={formik.isSubmitting || formik.errors.text || formik.values.text === ''}
+            disabled={status !== 'idle'}
           >
-            <Spinner show={formik.isSubmitting} />
+            { formik.isSubmitting && <Spinner animation="border" size="sm" className="mr-2" /> }
             Send
           </button>
         </div>
       </div>
     </form>
   );
-};
-
-const Spinner = (props) => {
-  const { show } = props;
-  if (!show) return null;
-  return <div className="spinner-border spinner-border-sm mr-2" role="status" />;
 };
 
 export default connect()(MessageInput);

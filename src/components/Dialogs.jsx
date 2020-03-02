@@ -6,16 +6,20 @@ import {
 
 const useFocus = () => {
   const htmlElRef = useRef(null);
-  const setFocus = () => htmlElRef.current && htmlElRef.current.select();
+  const setFocus = () => {
+    if (htmlElRef.current) {
+      htmlElRef.current.select();
+    }
+  };
   return [htmlElRef, setFocus];
 };
 
 export const NewChannelDialog = (props) => {
   const [value, setValue] = useState('');
-  const { show, closeModalDialog, addChannel } = props;
   const [inputRef, setInputFocus] = useFocus();
+  const { show, closeModalDialog, addChannel } = props;
 
-  useEffect(() => { setInputFocus(); }, [show]);
+  useEffect(setInputFocus, [show]);
 
   const handleChange = (e) => {
     e.preventDefault();
@@ -110,7 +114,7 @@ export const RenameChannelDialog = (props) => {
 
   const [inputRef, setInputFocus] = useFocus();
 
-  useEffect(() => { setInputFocus(); }, [show]);
+  useEffect(setInputFocus, [show]);
   useEffect(() => { setValue(channelName); }, [channelName]);
 
   const handleChange = (e) => {
