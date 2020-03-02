@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import axios from 'axios';
 import { createSlice } from '@reduxjs/toolkit';
 
@@ -9,7 +10,6 @@ const slice = createSlice({
   initialState: [],
   reducers: {
     addMessageSuccess: (state, action) => [...state, action.payload],
-    addMessageFailure: () => {},
   },
   extraReducers: {
     [channels.removeChannelSuccess]:
@@ -17,9 +17,7 @@ const slice = createSlice({
   },
 });
 
-const { addMessageFailure } = slice.actions;
-
-const addMessage = (currentChannelId, values) => async (dispatch) => {
+const addMessage = (currentChannelId, values) => async () => {
   try {
     await axios.post(routes.channelMessagesPath(currentChannelId), {
       data: {
@@ -27,7 +25,7 @@ const addMessage = (currentChannelId, values) => async (dispatch) => {
       },
     });
   } catch (error) {
-    dispatch(addMessageFailure(error.message));
+    console.log(error);
   }
 };
 

@@ -1,4 +1,4 @@
-/* eslint-disable no-param-reassign */
+/* eslint-disable no-param-reassign, no-console */
 import { createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 
@@ -13,7 +13,6 @@ const slice = createSlice({
   reducers: {
     addChannelSuccess: (state, action) => { state.data = [...state.data, action.payload]; },
     addChannelFinish: (state, action) => { state.currentChannelId = action.payload.id; },
-    addChannelFailure: () => {},
     removeChannelSuccess: (state, action) => {
       const { id } = action.payload;
       if (state.currentChannelId === id) {
@@ -21,21 +20,16 @@ const slice = createSlice({
       }
       state.data = state.data.filter((t) => t.id !== id);
     },
-    removeChannelFailure: () => {},
     renameChannelSuccess: (state, action) => {
       const { id, name } = action.payload;
       state.data.find((c) => c.id === id).name = name;
     },
-    renameChannelFailure: () => {},
     changeChannelRequest: (state, action) => { state.currentChannelId = action.payload.id; },
   },
 });
 
 const {
   addChannelFinish,
-  addChannelFailure,
-  removeChannelFailure,
-  renameChannelFailure,
   changeChannelRequest,
 } = slice.actions;
 
@@ -48,11 +42,11 @@ const addChannel = (name) => async (dispatch) => {
     });
     dispatch(addChannelFinish({ id: newChannel.data.data.id }));
   } catch (error) {
-    dispatch(addChannelFailure(error.message));
+    console.log(error);
   }
 };
 
-const removeChannel = (id) => async (dispatch) => {
+const removeChannel = (id) => async () => {
   try {
     await axios.delete(routes.channelPath(id), {
       data: {
@@ -60,11 +54,11 @@ const removeChannel = (id) => async (dispatch) => {
       },
     });
   } catch (error) {
-    dispatch(removeChannelFailure(error.message));
+    console.log(error);
   }
 };
 
-const renameChannel = (id, name) => async (dispatch) => {
+const renameChannel = (id, name) => async () => {
   try {
     await axios.patch(routes.channelPath(id), {
       data: {
@@ -72,7 +66,7 @@ const renameChannel = (id, name) => async (dispatch) => {
       },
     });
   } catch (error) {
-    dispatch(renameChannelFailure(error.message));
+    console.log(error);
   }
 };
 
