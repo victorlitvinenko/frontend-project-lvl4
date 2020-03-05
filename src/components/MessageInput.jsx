@@ -1,5 +1,5 @@
 import React, {
-  useState, useEffect, useContext, useRef,
+  useEffect, useContext, useRef,
 } from 'react';
 import { useSelector } from 'react-redux';
 import { useFormik } from 'formik';
@@ -26,7 +26,6 @@ const MessageInput = (props) => {
   const userName = useContext(UserContext);
   const [inputRef, setInputFocus] = useFocus();
   useEffect(setInputFocus);
-  const [status, setStatus] = useState('empty');
 
   const formik = useFormik({
     initialValues: {
@@ -36,18 +35,13 @@ const MessageInput = (props) => {
       const errors = {};
       if (!values.text.trim()) {
         errors.text = 'Required';
-        setStatus('empty');
-      } else {
-        setStatus('idle');
       }
       return errors;
     },
     onSubmit: async (values, { setSubmitting, resetForm }) => {
-      setStatus('submitting');
       await addMessage(currentChannelId, { ...values, userName, date: new Date() });
       setSubmitting(false);
       resetForm({});
-      setStatus('empty');
       setInputFocus();
     },
   });
@@ -62,7 +56,8 @@ const MessageInput = (props) => {
           className="form-control flex-grow-1"
           type="text"
           name="text"
-          disabled={status === 'submitting'}
+          autoComplete="off"
+          disabled={formik.isSubmitting}
           onChange={formik.handleChange}
           value={formik.values.text}
         />
@@ -70,9 +65,9 @@ const MessageInput = (props) => {
           <button
             className="btn btn-success"
             type="submit"
-            disabled={status !== 'idle'}
+            disabled={formik.isSubmitting || !formik.dirty}
           >
-            { formik.isSubmitting && <Spinner animation="border" size="sm" className="mr-2" /> }
+            {formik.isSubmitting && <Spinner animation="border" size="sm" className="mr-2" />}
             Send
           </button>
         </div>
