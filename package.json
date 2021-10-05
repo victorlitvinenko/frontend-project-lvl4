@@ -48,7 +48,7 @@
     "fastify-formbody": "^3.1.0",
     "fastify-secure-session": "^1.1.1",
     "fastify-sensible": "^2.1.1",
-    "fastify-static": "^2.6.0",
+    "fastify-static": "^4.2.4",
     "file-loader": "^5.0.2",
     "formik": "^2.1.4",
     "jquery": "^3.4.1",
